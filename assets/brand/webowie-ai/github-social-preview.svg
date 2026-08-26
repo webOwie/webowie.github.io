@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" role="img" aria-labelledby="title desc">
+  <title id="title">webOwie AI</title>
+  <desc id="desc">GitHub social preview for the webOwie AI subbrand</desc>
+  <rect width="1280" height="640" fill="#050505"/>
+  <path d="M0 520H1280" stroke="#2B3138" stroke-width="2"/>
+  <g transform="translate(94 142) scale(1.25)" fill="none" stroke="#F5F5F5" stroke-width="8" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M120 18 208 69v102l-88 51-88-51V69z"/>
+    <path d="M120 18v204M32 69l88 51 88-51M32 171l88-51 88 51"/>
+    <path d="M77 95c18-4 32-13 43-28 11 15 25 24 43 28-5 18-5 32 0 50-18 4-32 13-43 28-11-15-25-24-43-28 5-18 5-32 0-50z"/>
+  </g>
+  <circle cx="244" cy="292" r="16" fill="#55DCE8"/>
+  <text x="420" y="260" fill="#F5F5F5" font-family="Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif" font-size="118" font-weight="750" letter-spacing="-6">webOwie</text>
+  <rect x="920" y="169" width="205" height="120" rx="22" fill="#0D171A" stroke="#55DCE8" stroke-width="4"/>
+  <text x="1023" y="253" text-anchor="middle" fill="#55DCE8" font-family="Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif" font-size="82" font-weight="850" letter-spacing="7">AI</text>
+  <text x="422" y="350" fill="#C8CDD2" font-family="Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif" font-size="33" font-weight="600" letter-spacing="4">LOCAL-FIRST AI ORCHESTRATION</text>
+  <text x="422" y="414" fill="#7F8992" font-family="Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif" font-size="27">OmniRoute · Local Models · Agents · Automation</text>
+  <circle cx="104" cy="572" r="7" fill="#55DCE8"/>
+  <text x="128" y="582" fill="#C8CDD2" font-family="Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif" font-size="25" letter-spacing="2">SYSTEMS. INTELLIGENCE. AUTOMATION.</text>
+</svg>

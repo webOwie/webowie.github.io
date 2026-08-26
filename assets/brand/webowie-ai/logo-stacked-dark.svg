@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 700" role="img" aria-labelledby="title desc">
+  <title id="title">webOwie AI</title>
+  <desc id="desc">webOwie AI stacked logo for dark backgrounds</desc>
+  <g transform="translate(240 35)" fill="none" stroke="#F5F5F5" stroke-width="8" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M120 18 208 69v102l-88 51-88-51V69z"/>
+    <path d="M120 18v204M32 69l88 51 88-51M32 171l88-51 88 51"/>
+    <path d="M77 95c18-4 32-13 43-28 11 15 25 24 43 28-5 18-5 32 0 50-18 4-32 13-43 28-11-15-25-24-43-28 5-18 5-32 0-50z"/>
+  </g>
+  <circle cx="360" cy="155" r="13" fill="#55DCE8"/>
+  <text x="360" y="420" text-anchor="middle" fill="#F5F5F5" font-family="Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif" font-size="108" font-weight="700" letter-spacing="-5">webOwie</text>
+  <rect x="265" y="472" width="190" height="110" rx="20" fill="none" stroke="#55DCE8" stroke-width="4"/>
+  <text x="360" y="551" text-anchor="middle" fill="#55DCE8" font-family="Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif" font-size="72" font-weight="800" letter-spacing="7">AI</text>
+  <text x="360" y="638" text-anchor="middle" fill="#C8CDD2" font-family="Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif" font-size="24" font-weight="600" letter-spacing="5">LOCAL-FIRST INTELLIGENCE</text>
+</svg>
