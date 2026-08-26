@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="webOwie AI favicon">
+  <rect width="128" height="128" rx="24" fill="#050505"/>
+  <g transform="translate(20 16) scale(.37)" fill="none" stroke="#F5F5F5" stroke-width="12" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M120 18 208 69v102l-88 51-88-51V69z"/>
+    <path d="M120 18v204M32 69l88 51 88-51M32 171l88-51 88 51"/>
+  </g>
+  <circle cx="64" cy="60" r="6" fill="#55DCE8"/>
+  <circle cx="97" cy="94" r="8" fill="#55DCE8"/>
+</svg>
