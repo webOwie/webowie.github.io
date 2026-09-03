@@ -1,104 +1,154 @@
-# webOwie // OSINT Core
+# webOwie // SYS_CORE
 
-Static GitHub Pages surface for the webOwie intelligence and infrastructure ecosystem.
+Statische GitHub-Pages-Oberfläche für den Coming-Soon-Betrieb mit integriertem Service-Chat in Terminal-Ästhetik.
 
-## Architecture
+## Architektur
 
 ```text
-┌──────────────────────────────────────────────┐
-│ PUBLIC SURFACE                               │
-│ index.html · GitHub Pages · CDN Tailwind     │
-├──────────────────────────────────────────────┤
-│ APPLICATION SURFACES                         │
-│ /de · /en · /research · /osint-platform     │
-├──────────────────────────────────────────────┤
-│ CONTROL PLANE                                │
-│ Local AI · OSINT workflows · Proxmox         │
-│ automation · controlled network routing      │
-└──────────────────────────────────────────────┘
+┌──────────────────────────────────────┐
+│ PUBLIC SURFACE                       │
+│ index.html · GitHub Pages            │
+│ HTML5 · Tailwind CDN · Vanilla JS    │
+├──────────────────────────────────────┤
+│ CHAT STATE MACHINE                   │
+│ Local Simulation Mode                │
+│ sichere DOM-Ausgabe                  │
+├──────────────────────────────────────┤
+│ OPTIONAL EXTERNAL BRIDGE             │
+│ Cloudflare Worker / n8n / eigener API│
+├──────────────────────────────────────┤
+│ PRIVATE CONTROL PLANE                │
+│ Agenten · LLMs · Automatisierung     │
+│ API-Keys ausschließlich serverseitig │
+└──────────────────────────────────────┘
 ```
 
-The repository intentionally keeps the public landing surface independent from operational control systems. The site contains no build step and can be inspected directly as static HTML.
+GitHub Pages liefert ausschließlich die statische Oberfläche aus. Es existiert kein Serverprozess auf GitHub Pages und damit auch keine sichere Möglichkeit, geheime LLM- oder Provider-Schlüssel im Browser zu halten.
 
 ## Stack
 
 - HTML5
 - Tailwind CSS via CDN
-- Google Fonts: Inter and JetBrains Mono
-- Vanilla JavaScript for the terminal mockup
-- GitHub Pages deployment
+- Inter und JetBrains Mono
+- Vanilla JavaScript
+- GitHub Pages
+- Optional: kontrollierte Webhook-Bridge
 
-## Local preview
+## Chat-Modi
 
-No dependency installation is required. Open `index.html` directly in a browser or serve the repository with a minimal HTTP server:
+### Local Simulation Mode
+
+Standardzustand:
+
+```js
+const WEBHOOK_URL = '';
+```
+
+Die Chat-State-Machine erzeugt Antworten vollständig im Browser. Es wird kein Backend angesprochen.
+
+### Webhook Bridge
+
+Für eine produktive Integration wird eine HTTPS-URL gesetzt:
+
+```js
+const WEBHOOK_URL = 'https://example.invalid/chat';
+```
+
+Der Endpoint muss Browser-CORS-Anfragen explizit für die Pages-Origin erlauben und JSON akzeptieren. Der Client sendet:
+
+```json
+{
+  "message": "...",
+  "timestamp": "ISO-8601",
+  "source": "webowie-pages"
+}
+```
+
+Erwartete Minimalantwort:
+
+```json
+{
+  "reply": "..."
+}
+```
+
+Die Bridge besitzt einen Client-Timeout von 12 Sekunden. Fehler führen nicht zu einer stillen Weiterleitung an einen anderen Dienst.
+
+## Sicherheitsmodell
+
+- Keine API-Schlüssel im Repository oder Browser-Code
+- Keine direkte LLM-Provider-Anfrage aus der statischen Seite
+- DOM-Ausgabe über `textContent`
+- Begrenzte Eingabe- und Antwortlängen
+- `credentials: 'omit'` für Webhook-Anfragen
+- Fehlerbehandlung mit lokalem Fallback-Hinweis
+- Der UI-Status behauptet keine echte verschlüsselte Chat-Session
+
+Ein Webhook ist kein Geheimnis. Jede URL, die im statischen JavaScript steht, kann öffentlich eingesehen werden. Authentisierung, Rate-Limits, Abuse-Controls, Provider-Schlüssel und sensible Routing-Logik gehören hinter einen serverseitigen Endpoint.
+
+## Empfohlene Produktionsarchitektur
+
+```text
+Browser
+  ↓ HTTPS / CORS
+Cloudflare Worker oder eigener API-Gateway
+  ↓ serverseitige Authentisierung / Rate Limit
+n8n oder Agent Gateway
+  ↓ private Credentials
+LLM / lokale Agenten / Automatisierung
+```
+
+Für besonders sensible Systeme sollte die öffentliche Chat-Oberfläche keinen direkten Zugriff auf Infrastruktur-Automatisierung erhalten. Agenten benötigen explizite, minimal privilegierte Tool-Schnittstellen.
+
+## Lokale Vorschau
+
+Kein Build-Schritt erforderlich:
 
 ```bash
 python3 -m http.server 8080
 ```
 
-Then open `http://localhost:8080`.
+Anschließend `http://localhost:8080` öffnen.
 
-## Repository layout
+## Repository-Struktur
 
 ```text
 .
-├── index.html        # OSINT Core dashboard
-├── README.md         # Architecture and deployment notes
-├── CNAME             # Custom domain configuration
-├── assets/           # Shared static assets
-├── de/               # German public surface
-├── en/               # English public surface
-├── research/         # Research-oriented surface
-├── osint-platform/   # OSINT platform content
-└── proxmox-automation/
+├── index.html        # Coming Soon + Service Chat Core
+├── README.md         # Architektur und Betriebsdokumentation
+├── CNAME             # Custom Domain
+├── assets/           # Statische Assets
+├── de/               # Deutsche Inhalte
+├── en/               # Englische Inhalte
+├── research/         # Research-Surface
+└── osint-platform/   # OSINT-Inhalte
 ```
-
-Additional directories represent separate public or documentation surfaces and should not be treated as one monolithic application merely because humans enjoy putting unrelated things into one repository.
 
 ## GitHub Pages
 
-The repository's default branch is `main`. For a standard branch-based GitHub Pages configuration, publish from:
+Die aktuelle Deployment-Strategie muss in den Repository-Einstellungen überprüft werden. Für branchbasiertes Hosting ist die typische Konfiguration:
 
 ```text
+Settings → Pages
+Source: Deploy from a branch
 Branch: main
 Folder: / (root)
 ```
 
-The deployment source can be verified in the repository's **Settings → Pages** configuration. A push to the configured Pages branch updates the static site after GitHub Pages has completed propagation.
+Ein Push auf den konfigurierten Pages-Branch triggert die Bereitstellung durch GitHub Pages. Die tatsächliche Propagationszeit liegt außerhalb der Kontrolle der statischen Seite, weil natürlich selbst ein einzelnes HTML-Dokument erst noch durch diverse Ebenen menschlicher Infrastruktur wandern muss.
 
-## Design constraints
-
-- Dark-first interface based on `slate-950` and `slate-900`
-- Cyan and emerald reserved for state and interaction signals
-- JetBrains Mono for metrics, commands and system labels
-- Inter for prose and interface copy
-- Responsive CSS grid layout
-- No framework build chain
-
-## Terminal mockup
-
-The terminal component is intentionally non-operational. It accepts a small local command set:
-
-- `help`
-- `status`
-- `nodes`
-- `docs`
-- `clear`
-
-It executes nothing and has no backend connection. That distinction is important. A decorative terminal should not quietly mutate infrastructure.
-
-## Deployment workflow
+## Deployment-Workflow
 
 ```text
 edit
   ↓
-validate static HTML
+static validation
   ↓
-commit to configured Pages branch
+commit
   ↓
-push
+push to configured Pages branch
   ↓
-GitHub Pages propagation
+GitHub Pages deployment
 ```
 
-For changes to this public surface, keep external dependencies minimal and do not expose internal endpoints, credentials or control-plane topology through the static repository.
+Vor dem produktiven Aktivieren eines Webhooks müssen CORS, Rate-Limits, Logging, Datenschutz, Missbrauchsschutz und die serverseitige Geheimnisverwaltung geprüft werden.
